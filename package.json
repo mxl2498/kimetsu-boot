@@ -1,0 +1,53 @@
+{
+  "name": "kimetsu-boot",
+  "version": "1.0.0",
+  "description": "可自定义的 Windows 启动动画：内置和风动画或自己的视频，播完自动打开任意程序",
+  "main": "electron/main.js",
+  "author": "mxl2498",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mxl2498/kimetsu-boot.git"
+  },
+  "scripts": {
+    "start": "electron electron/main.js",
+    "settings": "electron electron/main.js --settings",
+    "selftest": "node scripts/selftest.js",
+    "dist": "electron-builder --win --x64",
+    "dist:portable": "electron-builder --win portable --x64",
+    "dist:dir": "electron-builder --win dir --x64"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^26.18.0"
+  },
+  "build": {
+    "appId": "com.github.mxl2498.kimetsu-boot",
+    "productName": "KimetsuBoot",
+    "copyright": "Copyright © 2026 mxl2498",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "app/**/*",
+      "electron/**/*",
+      "shared/**/*",
+      "package.json",
+      "!app/assets/GMincho-Heavy.ttf",
+      "!app/assets/wb-icon.png"
+    ],
+    "asar": true,
+    "compression": "maximum",
+    "win": {
+      "target": ["dir", "portable"],
+      "icon": "build/icon.png",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "portable": {
+      "artifactName": "KimetsuBoot-Portable.exe",
+      "unicode": true
+    }
+  }
+}

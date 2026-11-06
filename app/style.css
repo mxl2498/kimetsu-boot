@@ -1,0 +1,174 @@
+/* ============================================================
+   Kimetsu Boot — 动画样式
+   颜色全部走 --xxx-rgb 变量，由 anim.js 按配置注入
+   ============================================================ */
+@font-face{
+  font-family:"GMincho";
+  src:local("Source Han Serif SC Heavy"),
+      local("Noto Serif SC Heavy"),
+      url("assets/GMincho-Heavy.ttf") format("truetype");
+  font-weight:900;
+  font-display:swap;
+}
+@font-face{
+  font-family:"GSans";
+  src:local("Noto Sans SC"),local("Microsoft YaHei");
+}
+:root{
+  --bg-rgb:8,11,13;
+  --text-rgb:243,233,215;
+  --subtext-rgb:201,189,167;
+  --water-rgb:64,186,240;
+  --fire-rgb:240,96,22;
+  --ichi-rgb:29,70,52;
+  --accent-rgb:46,213,150;
+  --seal-rgb:208,57,43;
+  --slash-rgb:180,220,255;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:rgb(var(--bg-rgb));cursor:none}
+body{font-family:"GMincho","Noto Serif SC","SimSun",serif;-webkit-user-select:none;user-select:none}
+#stage{position:fixed;inset:0;overflow:hidden;background:rgb(var(--bg-rgb));opacity:1}
+#fx{position:absolute;inset:0;width:100%;height:100%;display:block}
+
+/* 自定义视频开场 */
+#videoLayer{position:absolute;inset:0;z-index:2;display:none;background:rgb(var(--bg-rgb));overflow:hidden}
+#bootVideo{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+#videoShade{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 82% 84% at 50% 48%,transparent 42%,rgba(0,0,0,.45) 100%)}
+body.video-mode #videoLayer{display:block}
+body.video-mode #fx,
+body.video-mode #ichimatsu,
+body.video-mode #prologue,
+body.video-mode #slashWord,
+body.video-mode #breath,
+body.video-mode #zenschu{display:none}
+body.video-mode #finale{background:rgba(0,0,0,.58)}
+
+/* 市松纹 */
+#ichimatsu{
+  position:absolute;inset:-10%;
+  opacity:0;
+  background-color:rgba(var(--bg-rgb),.9);
+  background-image:
+    linear-gradient(45deg,rgba(var(--ichi-rgb),.92) 25%,transparent 25%,transparent 75%,rgba(var(--ichi-rgb),.92) 75%),
+    linear-gradient(45deg,rgba(var(--ichi-rgb),.92) 25%,transparent 25%,transparent 75%,rgba(var(--ichi-rgb),.92) 75%);
+  background-size:var(--cell,110px) var(--cell,110px);
+  background-position:0 0,calc(var(--cell,110px)/2) calc(var(--cell,110px)/2);
+  mix-blend-mode:screen;
+  clip-path:inset(100% 0 0 0);
+  will-change:clip-path,opacity,transform;
+}
+
+#vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 76% 78% at 50% 48%,transparent 30%,rgba(0,0,0,.42) 72%,rgba(0,0,0,.86) 100%);
+  z-index:6;
+}
+
+.layer{position:absolute;inset:0;z-index:8;pointer-events:none}
+.vtext{
+  writing-mode:vertical-rl;text-orientation:upright;
+  white-space:nowrap;
+  color:rgb(var(--text-rgb));letter-spacing:.24em;line-height:1;
+  text-shadow:0 0 18px rgba(0,0,0,.95),0 0 42px rgba(0,0,0,.8);
+  opacity:0;
+}
+.vtext.small{font-size:clamp(20px,2.0vw,38px)}
+.vtext.tiny{font-size:clamp(13px,1.15vw,22px);letter-spacing:.5em;color:rgb(var(--subtext-rgb))}
+.vtext.huge{font-size:clamp(46px,6.2vw,118px);letter-spacing:.18em}
+.vtext.kanji{font-size:clamp(70px,10vw,190px);letter-spacing:.1em;color:#fffdf6}
+
+/* 序章 */
+#pro1{position:absolute;right:12%;top:11%}
+#pro2{position:absolute;right:calc(12% + 5.6vw);top:20%}
+
+/* 抜刀字 */
+#slashKanji{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:auto;writing-mode:horizontal-tb;white-space:nowrap}
+
+/* 水炎 */
+.breath-word{
+  position:absolute;top:50%;font-size:clamp(110px,17vw,320px);line-height:1;
+  opacity:0;transform:translateY(-50%);
+}
+.breath-word.water{left:16%;color:color-mix(in srgb,rgb(var(--water-rgb)) 30%,white);
+  text-shadow:0 0 40px rgba(var(--water-rgb),.95),0 0 110px rgba(var(--water-rgb),.6),0 8px 30px #000}
+.breath-word.fire{right:16%;color:color-mix(in srgb,rgb(var(--fire-rgb)) 30%,white);
+  text-shadow:0 0 40px rgba(var(--fire-rgb),.95),0 0 110px rgba(var(--fire-rgb),.6),0 8px 30px #000}
+.breath-sub{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);writing-mode:horizontal-tb;color:rgb(var(--text-rgb))}
+
+/* 全集中 */
+#zenMain{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);writing-mode:horizontal-tb;white-space:nowrap}
+#zenSub{position:absolute;left:50%;bottom:16%;transform:translateX(-50%);writing-mode:horizontal-tb;white-space:nowrap}
+.seal{
+  position:absolute;left:calc(50% + min(23vw,430px));top:calc(50% + 5.5vw);
+  width:clamp(46px,4.4vw,84px);height:clamp(46px,4.4vw,84px);
+  border:3px solid rgb(var(--seal-rgb));background:rgba(var(--seal-rgb),.16);color:rgb(var(--seal-rgb));
+  font-size:clamp(17px,1.55vw,30px);line-height:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;writing-mode:horizontal-tb;letter-spacing:0;
+  box-shadow:0 0 26px rgba(var(--seal-rgb),.45),inset 0 0 22px rgba(var(--seal-rgb),.25);
+  opacity:0;transform:rotate(-8deg) scale(1.5);
+}
+
+/* 终章：整体垂直排布，避免重叠 */
+.finale-box{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  display:flex;flex-direction:column;align-items:center;
+  width:min(92vw,900px);
+}
+#logoWrap{
+  position:relative;
+  width:clamp(96px,10vw,190px);height:clamp(96px,10vw,190px);
+  opacity:0;transform:scale(1.18);flex:none;
+}
+.logo-halo{
+  position:absolute;inset:-70%;border-radius:50%;
+  background:radial-gradient(circle,rgba(var(--accent-rgb),.42) 0%,rgba(var(--accent-rgb),.16) 34%,transparent 68%);
+  animation:halo 2.8s ease-in-out infinite;
+}
+@keyframes halo{0%,100%{transform:scale(.9);opacity:.7}50%{transform:scale(1.12);opacity:1}}
+.logo-svg{position:relative;width:100%;height:100%;display:block;
+  filter:drop-shadow(0 0 26px rgba(var(--accent-rgb),.75)) drop-shadow(0 10px 30px rgba(0,0,0,.8))}
+.logo-svg .lg-disc{fill:rgba(var(--accent-rgb),.10)}
+.logo-svg .lg-ring{fill:none;stroke:rgba(var(--accent-rgb),.85);stroke-width:3}
+.logo-svg .lg-ring2{fill:none;stroke:rgba(var(--accent-rgb),.38);stroke-width:1.4}
+.logo-svg .lg-edge{stroke:rgb(var(--accent-rgb));stroke-width:2;fill:none}
+.logo-svg .lg-dot{fill:rgba(255,255,255,.9)}
+#wbLogo{display:none;position:relative;width:100%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 0 26px rgba(var(--accent-rgb),.75)) drop-shadow(0 10px 30px rgba(0,0,0,.8))}
+.brand{
+  position:relative;left:auto;top:auto;transform:none;
+  margin-top:clamp(18px,2.4vw,46px);
+  font-family:"GSans","Noto Sans SC",sans-serif;font-weight:700;
+  font-size:clamp(34px,4.1vw,78px);letter-spacing:.14em;white-space:nowrap;
+  color:#f2fff8;text-shadow:0 0 30px rgba(var(--accent-rgb),.6),0 4px 24px rgba(0,0,0,.9);opacity:0;
+}
+.brand-sub{
+  position:relative;left:auto;top:auto;transform:none;
+  margin-top:clamp(12px,1.4vw,26px);
+  font-family:"GSans","Noto Sans SC",sans-serif;font-size:clamp(11px,1.05vw,19px);
+  letter-spacing:.42em;white-space:nowrap;color:color-mix(in srgb,rgb(var(--accent-rgb)) 62%,white);opacity:0;
+}
+.brand-sub .sep{color:rgba(var(--accent-rgb),.55);margin:0 .35em}
+.loadbar{
+  position:relative;left:auto;top:auto;transform:none;
+  margin-top:clamp(20px,2.2vw,42px);
+  width:clamp(180px,20vw,380px);height:2px;background:rgba(var(--accent-rgb),.16);opacity:0;overflow:hidden;
+}
+.loadbar i{display:block;height:100%;width:0%;
+  background:linear-gradient(90deg,rgba(var(--accent-rgb),.45),rgb(var(--accent-rgb)));
+  box-shadow:0 0 12px rgb(var(--accent-rgb))}
+
+#whiteflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:20}
+#hint{
+  position:absolute;right:2.4%;bottom:2.6%;z-index:9;
+  font-family:"GSans","Noto Sans SC",sans-serif;font-size:clamp(10px,.85vw,15px);
+  letter-spacing:.22em;color:rgba(var(--text-rgb),.34);
+  opacity:0;transition:opacity .6s;
+}
+#muted{
+  position:absolute;left:2.4%;bottom:2.6%;z-index:9;
+  font-family:"GSans",sans-serif;font-size:clamp(10px,.85vw,15px);letter-spacing:.2em;
+  color:rgba(var(--text-rgb),.55);opacity:0;transition:opacity .3s;
+}

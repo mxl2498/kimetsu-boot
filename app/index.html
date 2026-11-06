@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kimetsu Boot · 起動</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="stage">
+  <!-- 自定义视频开场（由设置面板开启） -->
+  <div id="videoLayer">
+    <video id="bootVideo" playsinline preload="auto"></video>
+    <div id="videoShade"></div>
+  </div>
+
+  <!-- 和纸纹理 / 粒子 / 波纹 / 火焰 / 刀光 -->
+  <canvas id="fx"></canvas>
+
+  <!-- 市松纹（可换主题色） -->
+  <div id="ichimatsu"></div>
+
+  <!-- 暗角 -->
+  <div id="vignette"></div>
+
+  <!-- 序章：竖排小字 -->
+  <div class="layer" id="prologue">
+    <div class="vtext small" id="pro1">大正時代 悪鬼滅殺</div>
+    <div class="vtext tiny" id="pro2">全集中の呼吸</div>
+  </div>
+
+  <!-- 抜刀瞬间：招式名 -->
+  <div class="layer" id="slashWord">
+    <div class="vtext kanji" id="slashKanji">抜刀</div>
+  </div>
+
+  <!-- 水炎双呼吸 -->
+  <div class="layer" id="breath">
+    <div class="breath-word water" id="wordWater">水</div>
+    <div class="breath-word fire" id="wordFire">炎</div>
+    <div class="vtext small breath-sub" id="breathSub">呼吸を整えよ</div>
+  </div>
+
+  <!-- 全集中题字 + 落款 -->
+  <div class="layer" id="zenschu">
+    <div class="vtext huge" id="zenMain">全集中 · 常中</div>
+    <div class="seal" id="seal"><span id="sealTop">集</span><span id="sealBottom">中</span></div>
+    <div class="vtext tiny" id="zenSub">心を澄ませ、刃を進めよ</div>
+  </div>
+
+  <!-- 终章：品牌 -->
+  <div class="layer" id="finale">
+    <div class="finale-box">
+      <div class="logo-wrap" id="logoWrap">
+        <div class="logo-halo"></div>
+        <!-- 默认通用徽标：纯 SVG 自绘，无任何第三方商标 -->
+        <svg class="logo-svg" id="logoDefault" viewBox="0 0 200 200" aria-hidden="true">
+          <defs>
+            <linearGradient id="bladeGrad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0"/>
+              <stop offset="55%" stop-color="#fff" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#fff" stop-opacity="1"/>
+            </linearGradient>
+          </defs>
+          <circle class="lg-disc" cx="100" cy="100" r="86"/>
+          <circle class="lg-ring" cx="100" cy="100" r="86"/>
+          <circle class="lg-ring2" cx="100" cy="100" r="72"/>
+          <path class="lg-blade" d="M34 166 L166 34 L166 60 L60 166 Z" fill="url(#bladeGrad)"/>
+          <path class="lg-edge" d="M166 34 L166 60"/>
+          <circle class="lg-dot" cx="100" cy="100" r="4.5"/>
+        </svg>
+        <img id="wbLogo" src="" alt="">
+      </div>
+      <div class="brand" id="brandName">WorkBuddy</div>
+      <div class="brand-sub" id="brandSub">起動完了 <span class="sep">/</span> SYSTEM READY</div>
+      <div class="loadbar"><i id="loadFill"></i></div>
+    </div>
+  </div>
+
+  <!-- 白闪 -->
+  <div id="whiteflash"></div>
+
+  <!-- 底部提示 -->
+  <div id="hint">点击或按任意键跳过　·　M 静音　·　S 设置</div>
+  <div id="muted">静音中</div>
+</div>
+
+<script src="../shared/defaults.js"></script>
+<script src="anim.js"></script>
+</body>
+</html>

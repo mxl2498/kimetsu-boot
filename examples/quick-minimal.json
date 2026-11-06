@@ -1,0 +1,26 @@
+{
+  "_说明": "最省事的极简方案：6 秒、静音、不飘花瓣、只播动画不打开任何软件",
+  "preset": "ink",
+  "duration": 6,
+  "sound": false,
+  "petals": false,
+  "text": {
+    "prologue1": "静心 · 然后开始",
+    "prologue2": "一息一念",
+    "slash": "起",
+    "water": "水",
+    "fire": "火",
+    "breathSub": "调整呼吸，专注当下",
+    "title": "心無旁騖",
+    "titleSub": "把重要的事，交给此刻",
+    "sealTop": "專",
+    "sealBottom": "注",
+    "brand": "",
+    "brandSub": "READY"
+  },
+  "launch": {
+    "path": "",
+    "autoDetect": false,
+    "activate": false
+  }
+}

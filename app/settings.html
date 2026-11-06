@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>启动动画设置</title>
+<link rel="stylesheet" href="settings.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="nav">
+    <div class="brandmark">
+      <div class="mark">起</div>
+      <div>
+        <div class="mark-title">启动动画</div>
+        <div class="mark-sub">设置面板</div>
+      </div>
+    </div>
+    <button class="nav-item active" data-go="s1"><span>1</span>开场用哪个</button>
+    <button class="nav-item" data-go="s2"><span>2</span>放什么字</button>
+    <button class="nav-item" data-go="s3"><span>3</span>什么风格</button>
+    <button class="nav-item" data-go="s4"><span>4</span>时长与声音</button>
+    <button class="nav-item" data-go="s5"><span>5</span>结束后打开</button>
+    <button class="nav-item" data-go="s6"><span>6</span>开机自动播</button>
+    <div class="nav-tip">
+      不确定怎么选？<br>直接点右下角<br><b>「保存并试播」</b><br>看一眼就知道了。
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="head">
+      <div>
+        <h1>把开机那几秒，做成自己喜欢的样子</h1>
+        <p>改完点「保存设置」就生效。想马上看效果，点「保存并试播」。</p>
+      </div>
+      <div class="head-badge" id="modeBadge">内置动画</div>
+    </header>
+
+    <div class="scroll" id="scroll">
+
+      <!-- ============ 1. 开场方式 ============ -->
+      <section id="s1" class="card">
+        <div class="card-head">
+          <h2>① 开场用哪个</h2>
+          <span class="tag tag-hot">最常用</span>
+        </div>
+        <p class="lead">可以选做好的动画，也可以放自己拍的视频。</p>
+
+        <div class="choice-row">
+          <button class="choice selected" id="modeAnim">
+            <div class="choice-ico">✦</div>
+            <div class="choice-name">内置动画</div>
+            <div class="choice-desc">和风开场，文字颜色随便改</div>
+            <div class="check">✓ 已选</div>
+          </button>
+          <button class="choice" id="modeVideo">
+            <div class="choice-ico">▶</div>
+            <div class="choice-name">我自己的视频</div>
+            <div class="choice-desc">用 mp4 / webm，全屏播放</div>
+            <div class="check">✓ 已选</div>
+          </button>
+        </div>
+
+        <div class="video-box" id="videoBox">
+          <div class="row">
+            <div class="row-label">视频文件<span class="req">必选</span></div>
+            <div class="row-body">
+              <button class="btn" id="pickVideo">选一个视频…</button>
+              <span class="filename" id="videoName">还没选视频</span>
+              <button class="btn-link" id="clearVideo">清除</button>
+            </div>
+          </div>
+          <p class="hint-line">认 <b>mp4</b> 最稳（H.264）。视频放在固定位置别删、别改名，否则下次会播不出来。</p>
+
+          <div class="row">
+            <div class="row-label">画面怎么摆</div>
+            <div class="row-body seg" id="fitSeg">
+              <button class="seg-btn selected" data-v="cover">铺满屏幕</button>
+              <button class="seg-btn" data-v="contain">完整显示</button>
+            </div>
+          </div>
+          <p class="hint-line">屏幕和视频形状不一样时：<b>铺满屏幕</b>会裁掉多余边角；<b>完整显示</b>会把整段视频都露出来，但可能有黑边。拿不准就先选「铺满屏幕」。</p>
+
+          <div class="row">
+            <div class="row-label">播多久</div>
+            <div class="row-body">
+              <label class="inline"><input type="radio" name="vlen" value="0" checked> 整段播完</label>
+              <label class="inline"><input type="radio" name="vlen" value="cut"> 只播前
+                <input type="number" id="maxSeconds" min="1" max="600" step="1" value="8"> 秒
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="row-label">视频声音</div>
+            <div class="row-body">
+              <label class="inline"><input type="checkbox" id="videoMute" checked> 静音（推荐）</label>
+              <label class="inline vol">原声音量 <input type="range" id="videoVolume" min="0" max="100" value="80"></label>
+            </div>
+          </div>
+
+          <details class="adv">
+            <summary>进阶：播完之后</summary>
+            <div class="adv-body">
+              <label class="inline"><input type="checkbox" id="showFinale" checked> 接上结尾图标和文字</label>
+              <label class="inline">停留 <input type="number" id="finaleSeconds" min="0.5" max="10" step="0.1" value="1.8"> 秒</label>
+              <p class="hint-line">关掉的话，视频一结束就直接打开软件。</p>
+            </div>
+          </details>
+
+          <div class="safe-note">放心：视频选错了、打不开、或者文件被删了，会自动改回内置动画，不会卡在黑屏。</div>
+        </div>
+      </section>
+
+      <!-- ============ 2. 文案 ============ -->
+      <section id="s2" class="card">
+        <div class="card-head"><h2>② 画面上放什么字</h2><span class="tag">随时能改</span></div>
+        <p class="lead">留空就不显示这一行。用视频开场时，只有「结尾」那一组会出现。</p>
+
+        <div class="group-title">开场右上角，两行小字</div>
+        <div class="field"><label>第一行</label><input data-k="text.prologue1" placeholder="例如：大正時代 悪鬼滅殺"></div>
+        <div class="field"><label>第二行</label><input data-k="text.prologue2" placeholder="例如：全集中の呼吸"></div>
+
+        <div class="group-title">中间闪过的大字</div>
+        <div class="field"><label>刀光那一瞬</label><input data-k="text.slash" placeholder="例如：抜刀"></div>
+        <div class="field two">
+          <div><label>左边一个字</label><input data-k="text.water" placeholder="水"></div>
+          <div><label>右边一个字</label><input data-k="text.fire" placeholder="炎"></div>
+        </div>
+        <div class="field"><label>中间一行小字</label><input data-k="text.breathSub" placeholder="例如：呼吸を整えよ"></div>
+
+        <div class="group-title">正中央的大标题</div>
+        <div class="field"><label>主标题</label><input data-k="text.title" placeholder="例如：全集中 · 常中"></div>
+        <div class="field"><label>下面一行</label><input data-k="text.titleSub" placeholder="例如：心を澄ませ、刃を進めよ"></div>
+        <div class="field two">
+          <div><label>红印章上字</label><input data-k="text.sealTop" placeholder="集"></div>
+          <div><label>红印章下字</label><input data-k="text.sealBottom" placeholder="中"></div>
+        </div>
+
+        <div class="group-title">结尾</div>
+        <div class="field"><label>软件名字</label><input data-k="text.brand" placeholder="留空就只显示图标"></div>
+        <div class="field"><label>下面一行小字</label><input data-k="text.brandSub" placeholder="例如：起動完了 / SYSTEM READY"></div>
+
+        <div class="row icon-row">
+          <div class="row-label">结尾的图标</div>
+          <div class="row-body">
+            <img id="logoPreview" class="logo-pre" alt="">
+            <button class="btn" id="pickLogo">换成我的图片…</button>
+            <button class="btn-link" id="clearLogo">用默认图标</button>
+          </div>
+        </div>
+        <p class="hint-line">不换的话是一个自带的水墨圆环徽标。图片建议正方形、透明底 PNG，小于 2MB。</p>
+      </section>
+
+      <!-- ============ 3. 风格 ============ -->
+      <section id="s3" class="card">
+        <div class="card-head"><h2>③ 什么风格</h2><span class="tag">点一下就换</span></div>
+        <p class="lead">点一套模板，颜色和文字一起换好；换完还能再单独改字。</p>
+        <div class="preset-row" id="presetRow"></div>
+        <p class="hint-line">小提示：换模板会把第 ② 步自己写的字覆盖掉，想保留就别点模板，只改下面的颜色。</p>
+
+        <details class="adv">
+          <summary>进阶：自己调颜色</summary>
+          <div class="adv-body colors" id="colorGrid"></div>
+          <p class="hint-line">改任意一个颜色，就算「自定义配色」了。</p>
+        </details>
+      </section>
+
+      <!-- ============ 4. 时长与声音 ============ -->
+      <section id="s4" class="card">
+        <div class="card-head"><h2>④ 播多久、要不要声音</h2><span class="tag">内置动画专用</span></div>
+        <div class="row">
+          <div class="row-label">动画总时长</div>
+          <div class="row-body">
+            <input type="range" id="duration" min="5" max="24" step="0.5" value="10">
+            <b class="val" id="durationVal">10 秒</b>
+          </div>
+        </div>
+        <p class="hint-line">赶时间选 6～7 秒，想看完整分镜就保持 10 秒。用视频开场时这一项不影响视频。</p>
+
+        <div class="row">
+          <div class="row-label">内置音效</div>
+          <div class="row-body">
+            <label class="inline"><input type="checkbox" id="sound" checked> 播放太鼓、刀鸣、编钟</label>
+            <label class="inline vol">音量 <input type="range" id="volume" min="0" max="100" value="70"></label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-label">飘落的花瓣</div>
+          <div class="row-body">
+            <label class="inline"><input type="checkbox" id="petals" checked> 显示</label>
+            <label class="inline vol">多少 <input type="range" id="petalDensity" min="0" max="160" value="74"></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 5. 启动目标 ============ -->
+      <section id="s5" class="card">
+        <div class="card-head"><h2>⑤ 动画结束后打开哪个软件</h2><span class="tag">任意软件都行</span></div>
+        <p class="lead">默认是 WorkBuddy。想换成微信、浏览器、游戏，都能填。</p>
+        <div class="row">
+          <div class="row-label">软件位置</div>
+          <div class="row-body">
+            <input class="path" data-k="launch.path" placeholder="留空 = 自动找 WorkBuddy">
+            <button class="btn" id="pickExe">选文件…</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-label">找不到时</div>
+          <div class="row-body">
+            <label class="inline"><input type="checkbox" id="autoDetect" checked> 自动去常见位置找 WorkBuddy</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-label">播放结束</div>
+          <div class="row-body">
+            <label class="inline"><input type="checkbox" id="activate" checked> 把软件窗口拉到最前面</label>
+          </div>
+        </div>
+        <p class="hint-line">软件已经开着时会直接把它切到前台，不会重复打开第二个。</p>
+
+        <details class="adv">
+          <summary>进阶：特殊软件才需要填</summary>
+          <div class="adv-body">
+            <div class="field"><label>软件窗口名字（用来认窗口）</label><input data-k="launch.windowTitle" placeholder="例如：WorkBuddy"></div>
+            <div class="field"><label>进程名（多个用逗号隔开）</label><input data-k="launch.processName" placeholder="留空会自动按文件名猜"></div>
+            <div class="field"><label>启动时附带的参数</label><input data-k="launch.args" placeholder="一般留空"></div>
+          </div>
+        </details>
+      </section>
+
+      <!-- ============ 6. 开机自动播 ============ -->
+      <section id="s6" class="card">
+        <div class="card-head"><h2>⑥ 开机自动播放</h2><span class="tag">可随时关</span></div>
+        <div class="switch-row">
+          <label class="switch"><input type="checkbox" id="autostart"><span class="slider"></span></label>
+          <div>
+            <div class="switch-title">每次登录 Windows，先播一遍动画再进桌面</div>
+            <div class="switch-desc">关掉之后，只有你手动双击启动器才会播。不喜欢随时关，不影响软件本身。</div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="row-label">设置存在哪</div>
+          <div class="row-body">
+            <span class="filename" id="configPath">读取中…</span>
+            <button class="btn" id="openFolder">打开所在文件夹</button>
+          </div>
+        </div>
+        <p class="hint-line">所有设置都在这一个文件里，备份它就能把整套配置搬到另一台电脑。</p>
+      </section>
+
+      <div class="bottom-space"></div>
+    </div>
+
+    <footer class="bar">
+      <div class="status" id="status">还没改动</div>
+      <div class="actions">
+        <button class="btn ghost" id="btnReset">恢复默认</button>
+        <button class="btn ghost" id="btnSave">保存设置</button>
+        <button class="btn primary" id="btnPreview">▶ 保存并试播</button>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script src="../shared/defaults.js"></script>
+<script src="settings.js"></script>
+</body>
+</html>

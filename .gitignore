@@ -1,0 +1,27 @@
+# 依赖与构建产物
+node_modules/
+dist/
+dist_prev/
+dist3/
+dist4/
+out1/
+out2/
+selftest/
+
+# 本机运行产生的文件
+kimetsu-boot.config.json
+*.broken
+*.bak
+*.log
+
+# 本机专有资源（不进仓库）
+# 字体遵循 SIL OFL 1.1，请自行获取后放到 app/assets/，见 README
+app/assets/GMincho-Heavy.ttf
+app/assets/wb-icon.png
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

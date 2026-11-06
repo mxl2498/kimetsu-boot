@@ -1,0 +1,58 @@
+name: Build Windows
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify scripts
+        run: |
+          node --check electron/main.js
+          node --check app/anim.js
+          node --check app/settings.js
+          node --check shared/defaults.js
+
+      - name: Build (dir + portable)
+        run: npm run dist
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: KimetsuBoot-Windows
+          path: |
+            dist/KimetsuBoot-Portable.exe
+            dist/win-unpacked/**
+          if-no-files-found: error
+
+      - name: Publish Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/KimetsuBoot-Portable.exe
+          body: |
+            绿色目录版（启动更快）请下载 Actions 里的 `KimetsuBoot-Windows` 构件，
+            或 clone 仓库自行 `npm ci && npm run dist` 构建。
+            单文件便携版每次启动需解压，速度较慢，仅建议用于分发。
+          generate_release_notes: true
